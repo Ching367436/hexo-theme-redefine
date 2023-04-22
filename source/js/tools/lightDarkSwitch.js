@@ -18,6 +18,7 @@ Global.initModeToggle = () => {
       Global.styleStatus.isDark = false;
       Global.setStyleStatus();
       this.mermaidLightInit();
+      this.giscusLightInit();
     },
 
     enableDarkMode() {
@@ -27,6 +28,7 @@ Global.initModeToggle = () => {
       Global.styleStatus.isDark = true;
       Global.setStyleStatus();
       this.mermaidDarkInit();
+      this.giscusDarkInit();
     },
 
     mermaidLightInit() {
@@ -43,6 +45,27 @@ Global.initModeToggle = () => {
             theme: this.mermaidDarkTheme,
         });
       }
+    },
+
+    setGiscusTheme(theme) {
+      const giscusFrame = document.querySelector("iframe.giscus-frame");
+      if (giscusFrame) {
+        giscusFrame.contentWindow.postMessage({
+          giscus: {
+            setConfig: {
+              theme: theme
+            }
+          }
+        }, "https://giscus.app");
+      }
+    },
+
+    giscusDarkInit() {
+      this.setGiscusTheme('dark');
+    },
+
+    giscusLightInit() {
+      this.setGiscusTheme('light');
     },
 
     isDarkPrefersColorScheme() {
