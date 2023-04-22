@@ -80,6 +80,7 @@ Global.initModeToggle = () => {
       } else {
         this.isDarkPrefersColorScheme().matches ? this.enableDarkMode() : this.enableLightMode();
       }
+      Global.colorSchemeConfirmed = true;
     },
 
     initModeToggleButton() {

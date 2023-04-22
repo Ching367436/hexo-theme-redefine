@@ -8,7 +8,7 @@
     <script <%= theme.global.pjax === true ? 'data-pjax' : '' %> defer>
         async function loadGiscus() {
             // wait until styleStatus is available
-            while (!Global || !Global.styleStatus) await new Promise(r => setTimeout(r, 1000));
+            while (!Global || !Global.colorSchemeConfirmed) await new Promise(r => setTimeout(r, 1000));
             const giscusConfig = {
                 'src': 'https://giscus.app/client.js',
                 'data-repo': '<%= theme.comment.config.giscus.repo %>',
