@@ -47,9 +47,17 @@ Global.initModeToggle = () => {
       }
     },
 
-    setGiscusTheme(theme) {
-      const giscusFrame = document.querySelector("iframe.giscus-frame");
-      if (giscusFrame) {
+    async setGiscusTheme(theme) {
+      if (document.querySelector('#giscus-container')) {
+        let giscusFrame = document.querySelector("iframe.giscus-frame");
+        while (!giscusFrame) 
+        {
+          await new Promise(r => setTimeout(r, 1000));
+          giscusFrame = document.querySelector("iframe.giscus-frame");
+        }
+        while (giscusFrame.classList.contains('giscus-frame--loading')) await new Promise(r => setTimeout(r, 1000));
+        if (Global.styleStatus.isDark && theme === 'light') return;
+        if (!Global.styleStatus.isDark && theme === 'dark') return;
         giscusFrame.contentWindow.postMessage({
           giscus: {
             setConfig: {
